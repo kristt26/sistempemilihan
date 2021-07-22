@@ -1,0 +1,16 @@
+{
+    "name": "admin/sistempemilihan",
+    "description": "Library",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ajenkris Yanto Kungkung",
+            "email": "kristt26@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "ocs/wplib": "dev-master"
+    }
+}
