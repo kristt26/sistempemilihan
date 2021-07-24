@@ -423,7 +423,7 @@ function PelangganServices($http, $q, helperServices, AuthService, message) {
         return def.promise;
     }
 }
-function seleksiServices($http, $q, helperServices, AuthService) {
+function seleksiServices($http, $q, helperServices, AuthService, message) {
     var controller = helperServices.url + '/seleksi/';
     var service = {};
     service.data = [];
@@ -528,7 +528,7 @@ function seleksiServices($http, $q, helperServices, AuthService) {
         return def.promise;
     }
 }
-function LaporanServices($http, $q, helperServices, AuthService) {
+function LaporanServices($http, $q, helperServices, AuthService, message) {
     var controller = helperServices.url + '/laporan/';
     var service = {};
     service.data = [];
@@ -557,7 +557,7 @@ function LaporanServices($http, $q, helperServices, AuthService) {
     }
 
 }
-function HomeServices($http, $q, helperServices, AuthService) {
+function HomeServices($http, $q, helperServices, AuthService, message) {
     var controller = helperServices.url + '/home/';
     var service = {};
     service.data = [];
