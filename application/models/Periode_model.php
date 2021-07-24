@@ -5,7 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Periode_model extends CI_Model {
     public function get()
     {
-        return $this->db->get('periode')->result_array();
+        $result =  $this->db->get('periode')->result_array();
+        return $result;
     }
     public function getAktif()
     {
