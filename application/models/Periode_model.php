@@ -9,7 +9,7 @@ class Periode_model extends CI_Model {
     }
     public function getAktif()
     {
-        return $this->db->get('periode', ['status'=>1])->row_array();
+        return $this->db->get_where('periode', ['status'=>'1'])->row_array();
     }
     public function save($data)
     {

@@ -6,6 +6,9 @@ class Pelanggan_model extends CI_Model
 {
     public function select($periodeid = null)
     {
+        $this->load->model('Periode_model');
+        $Periode = $this->Periode_model->getAktif();
+        return $this->db->get_where('pelanggan', ['periodeid'=>$Periode['id']])->result_array();
         if(is_null($periodeid)){
             return $this->db->get('pelanggan')->result_array();
         }else{
