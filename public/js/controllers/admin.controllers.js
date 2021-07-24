@@ -258,7 +258,7 @@ function pelangganController($scope, helperServices, PelangganServices, periodeS
     }
 
     function CSVToArray(strData, strDelimiter) {
-        strDelimiter = (strDelimiter || ";");
+        strDelimiter = (strDelimiter || ",");
         let objPattern = new RegExp(
             (
                 "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
