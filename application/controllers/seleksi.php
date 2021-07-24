@@ -56,7 +56,7 @@ class Seleksi extends CI_Controller {
                     $selisih = $tgl - $pel['aktif'];
                     $item = [
                         "kode" => $kri['kode'],
-                        "bobot" => $selisih == 1 ? 1 : ($selisih == 2 ? 2 : (($selisih<=4 && $selisih>=3) ? 3 :  (($selisih<=6 && $selisih>=5) ? 4 : (5))))
+                        "bobot" => $selisih <= 1 ? 1 : ($selisih == 2 ? 2 : (($selisih==3 ) ? 3 :  (($selisih==4) ? 4 : (5))))
                     ];
                     array_push($pelanggan[$keypel]['nilai'], $item);
                 }
