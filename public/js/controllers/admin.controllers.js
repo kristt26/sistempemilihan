@@ -177,7 +177,7 @@ function pelangganController($scope, helperServices, PelangganServices, periodeS
     PelangganServices.get().then(x => {
         $scope.datas = x;
         periodeServices.get().then(res => {
-            $scope.periode = res.find(x => x.status = "1");
+            $scope.periode = res.find(x => x.status == "1");
             $.LoadingOverlay("hide");
         })
     })
