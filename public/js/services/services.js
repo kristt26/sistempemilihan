@@ -8,7 +8,7 @@ angular.module('services', [])
     .factory('HomeServices', HomeServices)
     ;
 
-function UserServices($http, $q, helperServices) {
+function UserServices($http, $q, helperServices, message) {
     var controller = helperServices.url + 'users';
     var service = {};
     service.data = [];
@@ -86,7 +86,7 @@ function UserServices($http, $q, helperServices) {
     }
 
 }
-function kriteriaServices($http, $q, helperServices, AuthService) {
+function kriteriaServices($http, $q, helperServices, AuthService, message) {
     var controller = helperServices.url + '/kriteria/';
     var service = {};
     service.data = [];
@@ -256,7 +256,7 @@ function kriteriaServices($http, $q, helperServices, AuthService) {
     }
 
 }
-function periodeServices($http, $q, helperServices, AuthService) {
+function periodeServices($http, $q, helperServices, AuthService, message) {
     var controller = helperServices.url + '/periode/';
     var service = {};
     service.data = [];
@@ -353,7 +353,7 @@ function periodeServices($http, $q, helperServices, AuthService) {
     }
 
 }
-function PelangganServices($http, $q, helperServices, AuthService) {
+function PelangganServices($http, $q, helperServices, AuthService, message) {
     var controller = helperServices.url + '/pelanggan/';
     var service = {};
     service.data = [];
