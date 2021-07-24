@@ -24,36 +24,42 @@
         </form>
     </div>
     <div class="col-md-12">
-        <div class="card card-secondary">
+        <div class="card card-danger">
             <div class="card-header">
-                <h3 class="card-title"><i class="fas fa-th-list"></i>&nbsp;&nbsp; List Petugas</h3>
+                <h3 class="card-title"><i class="fas fa-th-list"></i>&nbsp;&nbsp; Daftar Pelanggan Periode
+                    {{periode.periode}}</h3>
+                <div class="card-tools">
+                    <button class="btn btn-secondary btn-sm" ng-click="deleted(periode)"><i
+                            class="fas fa-trash"></i> Clear</button>
+                </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body table-responsive p-0" style="height: 500px;">
-                <table class="table table-sm table-hover table-head-fixed text-nowrap">
+            <div class="card-body table-responsive p-0">
+                <table datatable="ng" class="table table-sm table-hover text-nowrap">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Id Pelanggan</th>
                             <th>Nama</th>
                             <th>Alamat</th>
-                            <th>Telepon</th>
+                            <th>HP</th>
                             <th>Email</th>
-                            <th><i class="fas fa-cog"></i></th>
+                            <th>Paket</th>
+                            <th>Tanggal Bayar</th>
+                            <th>Tahun Aktif</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in datas">
                             <td>{{$index+1}}</td>
-                            <td>{{item.kodepelanggan}}</td>
+                            <td>{{item.idpelanggan}}</td>
                             <td>{{item.nama}}</td>
-                            <td><span class="tag tag-success">{{item.alamat}}</span></td>
-                            <td>{{item.kontak}}</td>
+                            <td>{{item.alamat}}</td>
+                            <td>{{item.hp}}</td>
                             <td>{{item.email}}</td>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-sm" ng-click="edit(item)"><i
-                                        class="fas fa-edit"></i></button>
-                            </td>
+                            <td>{{item.paket}}</td>
+                            <td>{{item.tanggalbayar}}</td>
+                            <td>{{item.aktif}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -64,11 +70,11 @@
     <!-- Button trigger modal -->
 
     <!-- Modal -->
-    <div class="modal fade" id="showDataUpload" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" modal-backdrop
-        aria-hidden="true">
+    <div class="modal fade" id="showDataUpload" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        modal-backdrop aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
-                <div class="modal-header bg-secondary">
+                <div class="modal-header bg-danger">
                     <h5 class="modal-title">Data Upload</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -85,33 +91,30 @@
                                     <th>Alamat</th>
                                     <th>HP</th>
                                     <th>Email</th>
-                                    <th>Kecepatan Inet</th>
+                                    <th>Paket</th>
                                     <th>Tanggal Bayar</th>
-                                    <th><i class="fas fa-cog"></i></th>
+                                    <th>Tahun Aktif</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="item in dataUpload">
                                     <td>{{$index+1}}</td>
-                                    <td>{{item.id}}</td>
+                                    <td>{{item.idpelanggan}}</td>
                                     <td>{{item.nama}}</td>
-                                    <td><span class="tag tag-success">{{item.alamat}}</span></td>
+                                    <td>{{item.alamat}}</td>
                                     <td>{{item.hp}}</td>
                                     <td>{{item.email}}</td>
-                                    <td>{{item.kecepataninet}}</td>
+                                    <td>{{item.paket}}</td>
                                     <td>{{item.tanggalbayar}}</td>
-                                    <td>
-                                        <button type="button" class="btn btn-warning btn-sm" ng-click="edit(item)"><i
-                                                class="fas fa-edit"></i></button>
-                                    </td>
+                                    <td>{{item.aktif}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" ng-click="clear()">Batal</button>
+                    <button type="button" class="btn btn-primary" ng-click="save(dataUpload)">Simpan</button>
                 </div>
             </div>
         </div>

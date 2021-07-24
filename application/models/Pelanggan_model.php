@@ -4,18 +4,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Pelanggan_model extends CI_Model
 {
-
-    public function select($id = null)
+    public function select($periodeid = null)
     {
-        // $periode = $this->db->get_where('periode', ['status'=>1])->row_array();
-        return $this->db->get_where('pelanggan')->result_array();
+        if(is_null($periodeid)){
+            return $this->db->get('pelanggan')->result_array();
+        }else{
+            return $this->db->get_where('pelanggan', ['periodeid'=>$periodeid])->result_array();
+        }
     }
     public function insert($data)
     {
-        $result = $this->db->insert('pelanggan', $data);
-        $data['id'] = $this->db->insert_id();
+        $result = $this->db->insert_batch('pelanggan', $data);
         if ($result) {
-            return $data;
+            return $this->db->get('pelanggan')->result_array();
         } else {
             return false;
         }
@@ -36,7 +37,7 @@ class Pelanggan_model extends CI_Model
     }
     public function delete($id)
     {
-        $this->db->where('id', $id);
+        $this->db->where('periodeid', $id);
         return $this->db->delete('pelanggan');
     }
 

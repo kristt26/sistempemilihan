@@ -1,17 +1,21 @@
 angular.module('adminctrl', [])
     .controller('homeController', homeController)
     .controller('loginController', loginController)
+    .controller('kriteriaController', kriteriaController)
     .controller('periodeController', periodeController)
     .controller('profileController', profileController)
     .controller('pelangganController', pelangganController)
-    .controller('laporanController', laporanController)
+    .controller('seleksiController', seleksiController)
+    .controller('historyController', historyController)
     ;
 function homeController($scope, HomeServices) {
 
     $scope.itemHeader = { title: "Home", breadcrumb: "Home", header: "Home" };
     $scope.$emit("SendUp", $scope.itemHeader);
     $scope.datas = {};
-    $.LoadingOverlay("hide");
+    setTimeout(() => {
+        $.LoadingOverlay("hide");
+    }, 300);
     // HomeServices.get().then(x=>{
     //     $scope.datas = x;
     // })
@@ -28,7 +32,96 @@ function loginController($scope, AuthService, helperServices) {
 
 }
 
-function periodeController($scope, AuthService, helperServices, periodeServices) {
+function kriteriaController($scope, AuthService, helperServices, kriteriaServices, message) {
+    $scope.itemHeader = { title: "Kriteria", breadcrumb: "Kriteria", header: "Kriteria" };
+    $scope.$emit("SendUp", $scope.itemHeader);
+    $scope.datas = [];
+    $scope.subKriteria = [];
+    $scope.model = {};
+    $scope.modelSub = {};
+    $scope.simpan = true;
+    $scope.simpanSub = true;
+    $scope.dialogSub = false;
+
+    kriteriaServices.get().then(res => {
+        res.forEach(element => {
+           element.bobot = parseFloat(element.bobot);
+           element.subkriteria.forEach(sub => {
+               sub.bobot = parseFloat(sub.bobot);
+           });
+        });
+        $scope.datas = res;
+        $.LoadingOverlay("hide");
+    })
+
+    $scope.edit = (item, set) => {
+        if(set=="kriteria"){
+            $scope.model = angular.copy(item);
+            $scope.simpan = false;
+            $scope.dialogSub = false;
+            $scope.simpanSub = true;
+            $scope.modelSub = {};
+        }else{
+            $scope.modelSub = angular.copy(item);
+            $scope.simpanSub = false;
+            $scope.simpan = true;
+            $scope.model = {};
+        }
+    }
+
+    $scope.showSub = (item) => {
+        $scope.subKriteria = item;
+        $scope.modelSub.kriteriaid = $scope.subKriteria.id;
+        $scope.dialogSub = true;
+    }
+
+    $scope.save = (set) => {
+        if(set=="kriteria"){
+            if ($scope.model.id) {
+                kriteriaServices.put($scope.model).then(res => {
+                    $scope.$emit("SendUp", $scope.itemHeader);
+                    message.info("Proses Berhasil");
+                    $scope.model={};
+                })
+            } else {
+                kriteriaServices.post($scope.model).then(res => {
+                    $scope.$emit("SendUp", $scope.itemHeader);
+                    message.info("Proses Berhasil");
+                    $scope.model={};
+                })
+            }
+        }else{
+            if ($scope.model.id) {
+                kriteriaServices.putSub($scope.modelSub).then(res => {
+                    $scope.$emit("SendUp", $scope.itemHeader);
+                    message.info("Proses Berhasil");
+                    $scope.model={};
+                    $scope.model.kriteriaid = $scope.subKriteria.id;
+                })
+            } else {
+                kriteriaServices.postSub($scope.modelSub).then(res => {
+                    $scope.$emit("SendUp", $scope.itemHeader);
+                    message.info("Proses Berhasil");
+                    $scope.model={};
+                    $scope.model.kriteriaid = $scope.subKriteria.id;
+                })
+            }
+        }
+    }
+
+    $scope.delete = (item, set) => {
+        if(set=="kriteria"){
+            kriteriaServices.deleted(item).then(res => {
+                message.info("Berhasil")
+            })
+        }else{
+            kriteriaServices.deletedSub(item).then(res => {
+                message.info("Berhasil")
+            })
+        }
+    }
+}
+function periodeController($scope, AuthService, helperServices, periodeServices, message) {
     $scope.itemHeader = { title: "Periode", breadcrumb: "Periode", header: "Periode" };
     $scope.$emit("SendUp", $scope.itemHeader);
     $scope.datas = [];
@@ -48,30 +141,22 @@ function periodeController($scope, AuthService, helperServices, periodeServices)
     $scope.save = () => {
         if ($scope.model.id) {
             periodeServices.put($scope.model).then(res => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Proses Berhasil'
-                })
+                $scope.itemHeader = { title: "Periode", breadcrumb: "Periode", header: "Periode", periode: res };
+                $scope.$emit("SendUp", $scope.itemHeader);
+                message.info("Proses Berhasil");
             })
         } else {
             periodeServices.post($scope.model).then(res => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Proses Berhasil'
-                })
+                $scope.itemHeader = { title: "Periode", breadcrumb: "Periode", header: "Periode", periode: res };
+                $scope.$emit("SendUp", $scope.itemHeader);
+                message.info("Proses Berhasil");
             })
         }
     }
 
     $scope.delete = (item) => {
         periodeServices.deleted(item).then(res => {
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Proses Berhasil'
-            })
+            message.info("Proses Berhasil");
         })
     }
 }
@@ -80,16 +165,21 @@ function profileController($scope) {
     $.LoadingOverlay("hide");
 }
 
-function pelangganController($scope, helperServices, PelangganServices) {
+function pelangganController($scope, helperServices, PelangganServices, periodeServices, message) {
+
     $scope.itemHeader = { title: "Pelanggan", breadcrumb: "Pelanggan", header: "Pelanggan" };
     $scope.$emit("SendUp", $scope.itemHeader);
     $scope.datas = [];
     $scope.model = {};
     $scope.simpan = true;
     $scope.dataUpload = [];
+    $scope.periode = {}
     PelangganServices.get().then(x => {
         $scope.datas = x;
-        $.LoadingOverlay("hide");
+        periodeServices.get().then(res => {
+            $scope.periode = res.find(x => x.status = "1");
+            $.LoadingOverlay("hide");
+        })
     })
     $scope.cekFile = (item) => {
 
@@ -100,30 +190,18 @@ function pelangganController($scope, helperServices, PelangganServices) {
         $scope.simpan = false;
     }
 
-    $scope.save = () => {
-        $.LoadingOverlay("show");
-        // $scope.model.roles = helperServices.roles;
-        if ($scope.model.id) {
-            PelangganServices.put($scope.model).then(result => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Proses Berhasil'
-                })
-                $scope.model = {};
+    $scope.save = (datas) => {
+        message.dialog("Anda Yakin?", "Ya", "Tidak").then(x => {
+            $("#showDataUpload").modal('hide');
+            $.LoadingOverlay("show");
+            PelangganServices.post(datas).then(result => {
+                $scope.datas = result;
+                message.info("Proses berhasil!");
+                $scope.dataUpload = [];
+                $scope.clear();
                 $.LoadingOverlay("hide");
             })
-        } else {
-            PelangganServices.post($scope.model).then(result => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: 'Proses Berhasil'
-                })
-                $scope.model = {};
-                $.LoadingOverlay("hide");
-            })
-        }
+        })
     }
 
     document.getElementById('files').addEventListener('change', handleFileSelect, false);
@@ -133,27 +211,50 @@ function pelangganController($scope, helperServices, PelangganServices) {
         let bytes = 50000;
 
         reader.onloadend = function (evt) {
+            $.LoadingOverlay("show");
             let lines = evt.target.result;
             if (lines && lines.length > 0) {
                 let line_array = CSVToArray(lines);
                 if (lines.length == bytes) {
                     line_array = line_array.splice(0, line_array.length - 1);
                 }
+
+                // const groups = line_array.reduce((groups, item) => ({
+                //     ...groups,
+                //     [item.pelangganid]: [...(groups[item.pelangganid] || []), item]
+                // }), {});
+
+                // console.log(groups);
+
+                
                 $scope.$applyAsync(() => {
-                    for (let index = 1; index < line_array.length; index++) {
-                        if (line_array[index][0]) {
-                            var item = { id: line_array[index][0], nama: line_array[index][1].toUpperCase(), alamat: line_array[index][2], hp: "+62" + line_array[index][3], email: line_array[index][4], kecepataninet: line_array[index][6], tanggalbayar: line_array[index][7] };
+                    line_array.sort(sortFunction);
+                    var set;
+                    for (let index = 0; index < line_array.length-1; index++) {
+                        if (line_array[index][0] && line_array[index][0] != set) {
+                            var item = { idpelanggan: line_array[index][0], nama: line_array[index][1].toUpperCase(), alamat: line_array[index][2], hp: "+62" + line_array[index][3], email: line_array[index][4], paket: line_array[index][6], tanggalbayar: line_array[index][7], periodeid: $scope.periode.id, aktif: line_array[index][8].substring(line_array[index][8].length - 4), status: 1 };
                             $scope.dataUpload.push(angular.copy(item));
                         }
+                        set = line_array[index][0];
                     }
                     console.log($scope.dataUpload);
+                    $("#showDataUpload").modal('show');
+                    $.LoadingOverlay("hide");
                 })
             }
-            $("#showDataUpload").modal('show');
         }
 
         let blob = files[0].slice(0, bytes);
         reader.readAsBinaryString(blob);
+    }
+
+    function sortFunction(a, b) {
+        if (a[0] === b[0]) {
+            return 0;
+        }
+        else {
+            return (a[0] < b[0]) ? -1 : 1;
+        }
     }
 
     function CSVToArray(strData, strDelimiter) {
@@ -183,31 +284,123 @@ function pelangganController($scope, helperServices, PelangganServices) {
         }
         return (arrData);
     }
+
+    $scope.clear = () => {
+        document.getElementById("files").value = "";
+        $("#showDataUpload").modal('hide');
+    }
+
+    $scope.deleted = (param)=>{
+        message.dialog("ingin membersihkan data?", "Ya", "Tidak").then(x=>{
+            PelangganServices.deleted(param).then(res=>{
+                $scope.datas = [];
+                message.info("Success!!!");
+            })
+            // console.log(param);
+        })
+    }
 }
 
-function laporanController($scope, helperServices, LaporanServices, PelangganServices) {
-    $scope.itemHeader = { title: "Laporan", breadcrumb: "Laporan", header: "Laporan" };
+function seleksiController($scope, AuthService, helperServices, seleksiServices, message, periodeServices) {
+    $scope.itemHeader = { title: "Seleksi", breadcrumb: "Seleksi", header: "Seleksi" };
     $scope.$emit("SendUp", $scope.itemHeader);
-    $scope.model = {};
     $scope.datas = [];
-    $scope.a = [];
-    setTimeout((x) => {
+    $scope.model = {};
+    $scope.simpan = true;
+    $scope.jumlahRanking = 0;
+    $scope.tampil = false;
+    $scope.dataSend = [];
+    $scope.dataKirim = {};
+    $scope.periode = {};
+
+    seleksiServices.get().then(res => {
+        $scope.datas = res;
+        periodeServices.get().then(res => {
+            $scope.periode = res.find(x => x.status = "1");
+            $.LoadingOverlay("hide");
+        })
         $.LoadingOverlay("hide");
-    }, 1000);
-    $scope.tampil = (item) => {
-        $.LoadingOverlay("show");
-        var a = item.split(' - ');
-        if (a[0] !== a[1]) {
-            $scope.model.awal = a[0];
-            $scope.model.akhir = a[1];
-            LaporanServices.get($scope.model).then(x => {
-                $scope.datas = x;
-                $.LoadingOverlay("hide");
-            })
+    })
+
+    $scope.setNilaiRank = ()=>{
+        if($scope.jumlahRanking<0){
+            $scope.jumlahRanking = 0;
         }
-        $.LoadingOverlay("hide");
     }
+
+    $scope.save = (item) => {
+        message.dialogmessage("data yang telah ada akan diganti dengan data yang baru \nAnda yakin akan menyimpan hasil?", "Ya", "Tidak").then(x=>{
+            seleksiServices.post(item).then(res => {
+                $scope.dataSend = res;
+                console.log($scope.dataSend);
+                message.info("Berhasil menyimpan data!!");
+            })
+        })
+        
+    }
+
+    $scope.delete = (item) => {
+        periodeServices.deleted(item).then(res => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Proses Berhasil'
+            })
+        })
+    }
+
+    $scope.proses = (item)=>{
+        $scope.tampil = true;
+    }
+
+    $scope.setNilai = (item)=>{
+        $scope.dataKirim.data = item;
+        $("#setInfo").modal("show");
+    }
+    $scope.send = (item)=>{
+        message.dialogmessage("kirim pesan?", "Ya", "Tidak").then(x=>{
+            $scope.dataKirim.info = angular.copy(item);
+            seleksiServices.send($scope.dataKirim).then(res=>{
+                message.info("Pesan Terkirim!!!");
+            })
+
+        })
+    }
+
     $scope.print = () => {
         $("#print").printArea();
+    }
+}
+
+function historyController($scope, helperServices, seleksiServices, message, periodeServices) {
+    $scope.itemHeader = { title: "History", breadcrumb: "History", header: "History" };
+    $scope.$emit("SendUp", $scope.itemHeader);
+    $scope.model = {};
+    $scope.periodes = [];
+    $scope.periode={};
+    $scope.datas = [];
+    $scope.datasHistory = [];
+    $scope.a = [];
+    periodeServices.get().then(res => {
+        $scope.$applyAsync(x=>{
+            $scope.periodes = res;
+        })
+        console.log(res);
+        seleksiServices.hasil().then(x=>{
+            $scope.datas = x;
+            $.LoadingOverlay("hide");
+        })
+    })
+
+    $scope.show = ()=>{
+        $scope.datasHistory = $scope.datas.filter(x=>x.periodeid==$scope.periode.id);
+    }
+
+    $scope.print = () => {
+        $.LoadingOverlay("show");
+        $("#print").printArea();
+        setTimeout(() => {
+            $.LoadingOverlay("hide");
+        }, 1000);
     }
 }

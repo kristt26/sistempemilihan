@@ -4,16 +4,25 @@ angular.module('apps', [
     'auth.service',
     'services',
     'datatables',
-    'naif.base64'
+    'naif.base64',
+    'message.service',
+    'swangular'
 ])
-    .controller('indexController', function ($scope) {
+    .controller('indexController', function ($scope, periodeServices) {
         $scope.titleHeader = "Indihome Sistem";
         $scope.header = "";
         $scope.breadcrumb = "";
-        $.LoadingOverlay("show");
+        $scope.periode;
         $scope.$on("SendUp", function (evt, data) {
             $scope.header = data.title;
             $scope.header = data.header;
             $scope.breadcrumb = data.breadcrumb;
+            if($scope.header=='Periode'){
+                $scope.periode = data.periode;
+            }
+            $.LoadingOverlay("hide");
         });
+        periodeServices.get().then(res=>{
+            $scope.periode = res.find(x=>x.status = "1");
+        })
     });

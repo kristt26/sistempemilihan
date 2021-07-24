@@ -7,10 +7,14 @@ class Periode_model extends CI_Model {
     {
         return $this->db->get('periode')->result_array();
     }
+    public function getAktif()
+    {
+        return $this->db->get('periode', ['status'=>1])->row_array();
+    }
     public function save($data)
     {
         $data['status'] = "1";
-        $this->db->update('periode', ['status'=>"0"], ['status'=>"1"]);
+        $this->db->update('periode', ['status'=>0], ['status'=>1]);
         $result = $this->db->insert('periode', $data);
         if($result){
             $data['id'] = $this->db->insert_id();
@@ -23,10 +27,10 @@ class Periode_model extends CI_Model {
     {
         $item = [
             'periode'=>$data['periode'],
-            'status'=>$data['status'] == 'Aktif' ? "1" : "0"
+            'status'=>$data['status']
         ];
         if($data['status'] == 'Aktif'){
-            $this->db->update('periode', ['status'=>"0"], ['status'=>"1"]);
+            $this->db->update('periode', ['status'=>0], ['status'=>1]);
             $this->db->update('periode', $item, ['id'=>$data['id']]);
             return $data;
         }else{

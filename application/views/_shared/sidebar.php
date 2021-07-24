@@ -1,13 +1,13 @@
 <div class="sidebar">
         <!-- Sidebar user (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="user-panel">
           <!-- <div class="image">
             <img src="<?=base_url()?>favicon.ico" class="img-circle elevation-2" alt="User Image">
           </div> -->
           <div class="info">
             <a href="#" class="d-block"><?= $this->session->userdata('nama');?></a>
-            <h5 style="color: white"><?= $this->session->userdata('role');?></h5>
           </div>
+          <h5 style="color: #c2c7d0; font-size: 17px;"><marquee behavior="scroll" direction="left" scrollamount="5">Peride Aktif <strong>{{periode.periode}}</strong></marquee></h5>
         </div>
 
         <!-- Sidebar Menu -->
@@ -24,7 +24,15 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?=base_url('periode')?>" ng-class="{'nav-link active': header=='Petugas', 'nav-link': header!='Petugas'}">
+              <a href="<?=base_url('kriteria')?>" ng-class="{'nav-link active': header=='Kriteria', 'nav-link': header!='Kriteria'}">
+                <i class="nav-icon fas fa-check-square"></i>
+                <p>
+                  Kriteria
+                </p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="<?=base_url('periode')?>" ng-class="{'nav-link active': header=='Periode', 'nav-link': header!='Periode'}">
                 <i class="nav-icon fas fa-calendar"></i>
                 <p>
                   Periode
@@ -40,15 +48,15 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?=base_url('pelanggan')?>" ng-class="{'nav-link active': header=='Pelanggan', 'nav-link': header!='Pelanggan'}">
-                <i class="nav-icon fas fa-users"></i>
+              <a href="<?=base_url('Seleksi')?>" ng-class="{'nav-link active': header=='Seleksi', 'nav-link': header!='Seleksi'}">
+                <i class="nav-icon fas fa-spinner"></i>
                 <p>
-                  Motode WP
+                  Seleksi
                 </p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="<?=base_url('laporan')?>" ng-class="{'nav-link active': header=='Laporan', 'nav-link': header!='Laporan'}">
+              <a href="<?=base_url('History')?>" ng-class="{'nav-link active': header=='History', 'nav-link': header!='History'}">
                 <i class="nav-icon fas fa-file"></i>
                 <p>
                   History

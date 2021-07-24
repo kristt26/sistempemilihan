@@ -11,6 +11,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "ocs/wplib": "dev-master"
+        "ocs/wplib": "dev-master",
+        "phpmailer/phpmailer": "dev-master"
     }
 }

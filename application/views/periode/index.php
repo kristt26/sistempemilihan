@@ -1,6 +1,6 @@
 <div class="row" ng-controller="periodeController">
   <div class="col-md-4">
-    <div class="card card-secondary">
+    <div class="card card-danger">
       <div class="card-header">
         <h3 class="card-title"><i class="fas fa-plus-square fa-1x" ></i>&nbsp;&nbsp; Input Periode</h3>
       </div>
@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class="col-md-8">
-    <div class="card card-secondary">
+    <div class="card card-danger">
       <div class="card-header">
         <h3 class="card-title"><i class="fas fa-th-list"></i>&nbsp;&nbsp; Daftar Periode</h3>
       </div>
