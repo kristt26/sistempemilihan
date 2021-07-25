@@ -6,7 +6,8 @@ angular.module('apps', [
     'datatables',
     'naif.base64',
     'message.service',
-    'swangular'
+    'swangular',
+    'ngLocale'
 ])
     .controller('indexController', function ($scope, periodeServices) {
         $scope.titleHeader = "Indihome Sistem";
@@ -23,6 +24,6 @@ angular.module('apps', [
             $.LoadingOverlay("hide");
         });
         periodeServices.get().then(res=>{
-            $scope.periode = res.find(x=>x.status = "1");
+            $scope.periode = res.find(x=>x.status == "1");
         })
     });

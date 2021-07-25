@@ -30,7 +30,7 @@ class Periode_model extends CI_Model {
             'periode'=>$data['periode'],
             'status'=>$data['status']
         ];
-        if($data['status'] == 'Aktif'){
+        if($data['status'] == '1'){
             $this->db->update('periode', ['status'=>0], ['status'=>1]);
             $this->db->update('periode', $item, ['id'=>$data['id']]);
             return $data;

@@ -12,7 +12,7 @@
             <input type="text" class="form-control  form-control-sm" id="periode" ng-model="model.periode" placeholder="Periode">
           </div>
           <div class="form-group">
-            <label for="status" class="col-form-label col-form-label-sm">Periode</label>
+            <label for="status" class="col-form-label col-form-label-sm">Status</label>
             <select class="form-control" ng-model="model.status">
                 <option value="1">Aktif</option>
                 <option value="0">Tidak Aktif</option>

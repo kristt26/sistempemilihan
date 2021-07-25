@@ -31,7 +31,7 @@
                                 <div id="print">
                                     <div class="screen">
                                         <div class="col-md-12 d-flex justify-content-end">
-                                            <img src="<?=base_url('public/img/logoo.png');?>" width="100px">
+                                            <img src="<?=base_url('public/img/logoo.png');?>" width="250px">
                                         </div>
                                         <h1>LAPORAN PELANGGAN INDIHOME TERBAIK</h1>
                                         <h3 class="font-italic">INDIHOME CUSTOMER GATHERING </h3>
@@ -39,7 +39,7 @@
                                         <!-- <hr class="style2" style="margin-bottom:12px"><br> -->
                                     </div>
                                     <table
-                                        class="table table-sm table-hover table-bordered text-nowrap table-head-fixed ">
+                                        class="table table-sm table-hover table-bordered text-nowrap">
                                         <thead>
                                             <tr>
                                                 <th>No</th>

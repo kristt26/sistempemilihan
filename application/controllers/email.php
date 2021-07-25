@@ -20,7 +20,12 @@ class Email extends CI_Controller
 
     public function sendemail()
     {
+        $this->load->library('Mylib');
+        
         $data = json_decode($this->security->xss_clean($this->input->raw_input_stream), true);
+        $tanggal = date("d-m-Y", strtotime($data['info']['hari']));  
+        $hari = date("D", strtotime($data['info']['hari']));  
+        $data['info']['hari'] = $this->mylib->tgl_indo($tanggal, $hari);
         foreach ($data['data'] as $key => $value) {
             $item = [
                 'data'=>$value,
@@ -55,6 +60,18 @@ class Email extends CI_Controller
         } catch (Exception $e) {
             $mail->ErrorInfo;
         }
+    }
+
+    public function testview()
+    {
+        $data = [
+            'data'=>['nama'=>'sdfjkalsdjflaks', 'alamat'=>'asdfasdfasdaf', 'hp'=>'asdfasdfasd', 'email'=>'asdfasdfasd', 'idpelanggan'=>'asdfasdasdfasda'],
+            'info'=>[
+                "hari"=> "afasdfa",
+                "tempat"=> "asdfasdfa"
+            ]
+        ];
+        $this->load->view('email/index', $data);
     }
 }
 

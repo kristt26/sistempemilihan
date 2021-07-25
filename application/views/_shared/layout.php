@@ -203,6 +203,9 @@
     <script src="<?=base_url()?>public/dist/js/demo.js"></script>
     <script src="<?=base_url();?>public/js/googleMap.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="<?=base_url()?>public/plugins/input-mask/angular-input-masks-standalone.min.js"></script>
+    <script src="<?=base_url()?>public/js/angular-locale_id-id.js"></script>
+
     <!-- Page script -->
     <script>
     $(function() {

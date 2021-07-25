@@ -139,19 +139,28 @@ function periodeController($scope, AuthService, helperServices, periodeServices,
     }
 
     $scope.save = () => {
-        if ($scope.model.id) {
-            periodeServices.put($scope.model).then(res => {
-                $scope.itemHeader = { title: "Periode", breadcrumb: "Periode", header: "Periode", periode: res };
-                $scope.$emit("SendUp", $scope.itemHeader);
-                message.info("Proses Berhasil");
-            })
-        } else {
-            periodeServices.post($scope.model).then(res => {
-                $scope.itemHeader = { title: "Periode", breadcrumb: "Periode", header: "Periode", periode: res };
-                $scope.$emit("SendUp", $scope.itemHeader);
-                message.info("Proses Berhasil");
-            })
-        }
+        message.dialogmessage("Ingin Melanjutkan?", "Ya", "Tidak").then(x=>{
+            $.LoadingOverlay("show");
+            if ($scope.model.id) {
+                periodeServices.put($scope.model).then(res => {
+                    $scope.itemHeader = { title: "Periode", breadcrumb: "Periode", header: "Periode", periode: res };
+                    $scope.$emit("SendUp", $scope.itemHeader);
+                    $scope.model = {};
+                    $scope.simpan = true;
+                    $.LoadingOverlay("hide");
+                    message.info("Proses Berhasil");
+                })
+            } else {
+                periodeServices.post($scope.model).then(res => {
+                    $scope.itemHeader = { title: "Periode", breadcrumb: "Periode", header: "Periode", periode: res };
+                    $scope.$emit("SendUp", $scope.itemHeader);
+                    $scope.model = {};
+                    $scope.simpan = true;
+                    $.LoadingOverlay("hide");
+                    message.info("Proses Berhasil");
+                })
+            }
+        })
     }
 
     $scope.delete = (item) => {
@@ -359,8 +368,13 @@ function seleksiController($scope, AuthService, helperServices, seleksiServices,
     }
     $scope.send = (item)=>{
         message.dialogmessage("kirim pesan?", "Ya", "Tidak").then(x=>{
+            $.LoadingOverlay("show");
+            $("#setInfo").modal('hide');
             $scope.dataKirim.info = angular.copy(item);
+            $scope.dataKirim.info.hari = $scope.dataKirim.info.hari.getFullYear() + "-0" + ($scope.dataKirim.info.hari.getMonth() + 1) + "-" + $scope.dataKirim.info.hari.getDate();
+            console.log($scope.dataKirim);
             seleksiServices.send($scope.dataKirim).then(res=>{
+                $.LoadingOverlay("hide");
                 message.info("Pesan Terkirim!!!");
             })
 

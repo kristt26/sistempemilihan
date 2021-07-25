@@ -110,9 +110,10 @@
         -ms-flex-pack: justify !important;
         justify-content: space-between !important;
     }
+
     th {
-  text-align: left;
-}
+        text-align: left;
+    }
     </style>
 </head>
 
@@ -120,19 +121,29 @@
 
     <div class="wrapper"
         style="font-family: sans-serif; font-size: 14px; vertical-align: top; box-sizing: border-box; padding: 20px;">
-        <div class="d-flex justify-content-between">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Logo_BUMN_Untuk_Indonesia_2020.svg/1024px-Logo_BUMN_Untuk_Indonesia_2020.svg.png" alt="" width="160px">
-            <img src="https://www.telkom.co.id/data/image_upload/page/1594112773573_compress_PNG%20Logo%20Sekunder%20Telkom.png" alt="" width="160px">
-        </div>
+        <table width="100%">
+            <tr>
+                <td>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Logo_BUMN_Untuk_Indonesia_2020.svg/1024px-Logo_BUMN_Untuk_Indonesia_2020.svg.png"
+                        alt="" width="160px">
+                </td>
+                <td style="text-align: right;">
+                    <img src="https://www.telkom.co.id/data/image_upload/page/1594108255409_compress_logo%20telkom%20indonesia.png"
+                        alt="" width="160px">
+                </td>
+            </tr>
+        </table>
+        <!-- <div class="d-flex justify-content-between">
+        </div> -->
         <div class="header" style="padding-right: 7.5px;">
             <hr>
-            <h4 style="color: rgb(68, 114, 196); text-align:center">INDIHOME CUSTOMER GATHERING
+            <h4 style="color: rgb(68, 114, 196); text-align:center; font-size:23px">INDIHOME CUSTOMER GATHERING
             </h4>
             <hr>
         </div>
-        <h1 style="font-family: Calibri; font-size: 45px; text-align:center;">
+        <h1 style="font-family: Times New Roman;; font-size: 45px; text-align:center;">
             SELAMAT</h1>
-        <p style="font-family: Calibri; font-size: 20px; text-align:center;">
+        <p style="font-family: Times New Roman;; font-size: 20px; text-align:center;">
             Kepada <br> <strong><?= $data['nama'];?></strong> <br> Id: <?= $data['idpelanggan'];?> <br> Alamat:
             <?= $data['alamat'];?> <br> hp. <?= $data['hp'];?></p>
         <p style="font-family: Times New Roman; font-size: 25px; text-align:center;">
@@ -144,26 +155,26 @@
             diselenggarakan pada: <br>
         <table>
             <tr>
-                <th width="100px">
+                <th width="100px" style="font-family: Times New Roman; font-size: 20px;">
                     Hari
                 </th>
-                <th>
+                <th style="font-family: Times New Roman; font-size: 20px;">
                     : <?= $info['hari'];?>
                 </th>
             </tr>
             <tr>
-                <th>
+                <th style="font-family: Times New Roman; font-size: 20px;">
                     Tempat
                 </th>
-                <th>
+                <th style="font-family: Times New Roman; font-size: 20px;">
                     : <?= $info['tempat'];?>
                 </th>
             </tr>
         </table><br>
-    </p>
-    <p style="font-family: Times New Roman; font-size: 20px;">
-        Kehadiran anda sangat kami nantikan.
-    </p>
+        </p>
+        <p style="font-family: Times New Roman; font-size: 20px;">
+            Kehadiran anda sangat kami nantikan.
+        </p>
     </div>
     <table border="0" cellpadding="0" cellspacing="0" class="body"
         style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%; background-color: #f6f6f6;">
@@ -175,8 +186,8 @@
 
 
                     <div class="footer" style="clear: both; Margin-top: 10px; text-align: center; width: 100%;">
-                        <span class="apple-link"
-                            style="color: #999999; font-size: 12px; text-align: center;">Untuk info lebih lanjut, hubungi admin kami di 0967-343433</span>
+                        <span class="apple-link" style="color: #999999; font-size: 15px; text-align: center;">Untuk info
+                            lebih lanjut, hubungi admin kami di 0967-343433</span>
                     </div>
                     <!-- END FOOTER -->
 

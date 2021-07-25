@@ -7,12 +7,8 @@ class Home_model extends CI_Model
     public function select()
     {
         $result = $this->db->query("SELECT
-        (SELECT COUNT(permintaan.id)) AS totalpelanggan,
-        (SELECT COUNT(permintaan.id) FROM permintaan) AS totalpermintaan,
-        (SELECT COUNT(permintaan.id) FROM permintaan WHERE status='Proses') AS proses,
-        (SELECT COUNT(permintaan.id) FROM permintaan WHERE status='Success') AS success
-    FROM
-        `permintaan`")->row_array();
+            (SELECT COUNT(*) FROM pelanggan, periode WHERE pelanggan.periodeid = periode.id AND periode.status = 1) AS jumlahpelanggan,
+            (SELECT COUNT(*) FROM hasil, periode WHERE hasil.periodeid = periode.id AND periode.status = 1) AS hasil")->row_array();
         return $result;
     }
 }

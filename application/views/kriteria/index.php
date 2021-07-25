@@ -68,10 +68,10 @@
                                   <td width=10%>
                                       <button type="button" class="btn btn-info btn-sm" ng-click="showSub(item)"><i
                                               class="fas fa-list"></i></button>
-                                      <button type="button" class="btn btn-warning btn-sm" ng-click="edit(item, 'kriteria')"><i
+                                      <!-- <button type="button" class="btn btn-warning btn-sm" ng-click="edit(item, 'kriteria')"><i
                                               class="fas fa-edit"></i></button>
                                       <button type="button" class="btn btn-danger btn-sm" ng-click="delete(item, 'kriteria')"><i
-                                              class="fas fa-trash"></i></button>
+                                              class="fas fa-trash"></i></button> -->
                                   </td>
                               </tr>
                           </tbody>

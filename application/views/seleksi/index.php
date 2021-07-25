@@ -141,7 +141,7 @@
                             <div id="print">
                                 <div class="screen">
                                     <div class="col-md-12 d-flex justify-content-end">
-                                        <img src="<?=base_url('public/img/logoo.png');?>" width="100px">
+                                        <img src="<?=base_url('public/img/logoo.png');?>" width="250px">
                                     </div>
                                     <h1>LAPORAN PELANGGAN INDIHOME TERBAIK</h1>
                                     <h3 class="font-italic">INDIHOME CUSTOMER GATHERING </h3>
@@ -186,12 +186,11 @@
                 <form role="form" ng-submit="send(info)">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="hari" class="col-form-label col-form-label-sm">Hari Pelaksanaan</label>
-                            <input type="text" class="form-control  form-control-sm" id="hari" ng-model="info.hari"
-                                placeholder="Hari Pelaksanaan">
+                            <label for="hari" class="col-form-label col-form-label-sm">Tanggal Pelaksanaan</label>
+                            <input type="date" class="form-control  form-control-sm" id="hari" ng-model="info.hari">
                         </div>
                         <div class="form-group">
-                            <label for="tempat" class="col-form-label col-form-label-sm">Hari Pelaksanaan</label>
+                            <label for="tempat" class="col-form-label col-form-label-sm">Tempat Pelaksanaan</label>
                             <input type="text" class="form-control  form-control-sm" id="tempat" ng-model="info.tempat"
                                 placeholder="Tempat Pelaksanaan">
                         </div>

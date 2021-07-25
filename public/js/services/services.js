@@ -92,7 +92,7 @@ function kriteriaServices($http, $q, helperServices, AuthService, message) {
     service.data = [];
     service.instance = false;
     return {
-        get: get, post: post, postSub: postSub, put: put, putSub: putSub, deleted:deleted, deletedSub:deletedSub
+        get: get, post: post, postSub: postSub, put: put, putSub: putSub, deleted: deleted, deletedSub: deletedSub
     };
 
     function get() {
@@ -147,8 +147,8 @@ function kriteriaServices($http, $q, helperServices, AuthService, message) {
             headers: AuthService.getHeader()
         }).then(
             (res) => {
-                var data = service.data.find(x=>x.id == param.kriteriaid);
-                if(data){
+                var data = service.data.find(x => x.id == param.kriteriaid);
+                if (data) {
                     data.subkriteria.push(angular.copy(res.data))
                 }
                 def.resolve(res.data);
@@ -195,10 +195,10 @@ function kriteriaServices($http, $q, helperServices, AuthService, message) {
             headers: AuthService.getHeader()
         }).then(
             (res) => {
-                var data = service.data.find(x=>x.id == param.kriteriaid);
+                var data = service.data.find(x => x.id == param.kriteriaid);
                 if (data) {
-                    var subkriteria = data.subkriteria.find(x.id==param.id);
-                    if(subkriteria){
+                    var subkriteria = data.subkriteria.find(x.id == param.id);
+                    if (subkriteria) {
                         data.nama = param.nama;
                         data.bobot = param.bobot;
                         data.inisial = param.inisial;
@@ -241,7 +241,7 @@ function kriteriaServices($http, $q, helperServices, AuthService, message) {
             headers: AuthService.getHeader()
         }).then(
             (res) => {
-                var data = service.data.find(x=>x.id == param.kriteriaid);
+                var data = service.data.find(x => x.id == param.kriteriaid);
                 if (data) {
                     var index = data.subkriteria.indexOf(param)
                     data.subkriteria.splice(index, 1);
@@ -262,7 +262,7 @@ function periodeServices($http, $q, helperServices, AuthService, message) {
     service.data = [];
     service.instance = false;
     return {
-        get: get, post: post, put: put, deleted:deleted
+        get: get, post: post, put: put, deleted: deleted
     };
 
     function get() {
@@ -297,7 +297,7 @@ function periodeServices($http, $q, helperServices, AuthService, message) {
             headers: AuthService.getHeader()
         }).then(
             (res) => {
-                var data = service.data.find(x=>x.status=='1');
+                var data = service.data.find(x => x.status == '1');
                 data.status = '0';
                 service.data.push(res.data);
                 def.resolve(res.data);
@@ -319,6 +319,7 @@ function periodeServices($http, $q, helperServices, AuthService, message) {
         }).then(
             (res) => {
                 var data = service.data.find(x => x.id == param.id);
+                service.data.filter(x => x.status ="0");
                 if (data) {
                     data.periode = param.periode;
                     data.status = param.status;
@@ -359,7 +360,7 @@ function PelangganServices($http, $q, helperServices, AuthService, message) {
     service.data = [];
     service.instance = false;
     return {
-        get: get, post: post, deleted:deleted
+        get: get, post: post, deleted: deleted
     };
 
     function get() {
@@ -413,7 +414,7 @@ function PelangganServices($http, $q, helperServices, AuthService, message) {
             headers: AuthService.getHeader()
         }).then(
             (res) => {
-                service.data=[];
+                service.data = [];
                 def.resolve(res.data);
             },
             (err) => {
@@ -429,7 +430,7 @@ function seleksiServices($http, $q, helperServices, AuthService, message) {
     service.data = [];
     service.instance = false;
     return {
-        get: get, post: post, proses:proses, send:send, hasil, hasil
+        get: get, post: post, proses: proses, send: send, hasil, hasil
     };
 
     function get() {
@@ -472,7 +473,7 @@ function seleksiServices($http, $q, helperServices, AuthService, message) {
         );
         return def.promise;
     }
-    
+
     function post(param) {
         var def = $q.defer();
         $http({

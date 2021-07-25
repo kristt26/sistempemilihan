@@ -13,7 +13,8 @@ class home extends CI_Controller
     
     public function index()
     {
-        $content['content'] = $this->load->view('home/index', '', true);
+        $data = $this->Home_model->select();
+        $content['content'] = $this->load->view('home/index', $data, true);
         $this->load->view('_shared/layout', $content);
     }
     public function get()
