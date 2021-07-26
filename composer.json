@@ -1,17 +1,11 @@
 {
-    "name": "admin/sistempemilihan",
-    "description": "Library",
+    "name": "ui-design/sistempemilihan",
+    "description": "SPK Pemilihan Karyawan Terbaik",
     "type": "project",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Ajenkris Yanto Kungkung",
-            "email": "kristt26@gmail.com"
-        }
-    ],
     "minimum-stability": "dev",
     "require": {
-        "ocs/wplib": "dev-master",
-        "phpmailer/phpmailer": "dev-master"
+        "phpmailer/phpmailer": "dev-master",
+        "ocs/wplib": "dev-master"
     }
 }

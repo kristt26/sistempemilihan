@@ -5,8 +5,7 @@ angular.module('services', [])
     .factory('PelangganServices', PelangganServices)
     .factory('seleksiServices', seleksiServices)
     .factory('LaporanServices', LaporanServices)
-    .factory('HomeServices', HomeServices)
-    ;
+    .factory('HomeServices', HomeServices);
 
 function UserServices($http, $q, helperServices, message) {
     var controller = helperServices.url + 'users';
@@ -14,7 +13,9 @@ function UserServices($http, $q, helperServices, message) {
     service.data = [];
     service.instance = false;
     return {
-        get: get, post: post, put: put
+        get: get,
+        post: post,
+        put: put
     };
 
     function get() {
@@ -40,6 +41,7 @@ function UserServices($http, $q, helperServices, message) {
         }
         return def.promise;
     }
+
     function post(param) {
         var def = $q.defer();
         $http({
@@ -59,6 +61,7 @@ function UserServices($http, $q, helperServices, message) {
         );
         return def.promise;
     }
+
     function put(param) {
         var def = $q.defer();
         $http({
@@ -86,13 +89,20 @@ function UserServices($http, $q, helperServices, message) {
     }
 
 }
+
 function kriteriaServices($http, $q, helperServices, AuthService, message) {
     var controller = helperServices.url + '/kriteria/';
     var service = {};
     service.data = [];
     service.instance = false;
     return {
-        get: get, post: post, postSub: postSub, put: put, putSub: putSub, deleted: deleted, deletedSub: deletedSub
+        get: get,
+        post: post,
+        postSub: postSub,
+        put: put,
+        putSub: putSub,
+        deleted: deleted,
+        deletedSub: deletedSub
     };
 
     function get() {
@@ -118,6 +128,7 @@ function kriteriaServices($http, $q, helperServices, AuthService, message) {
         }
         return def.promise;
     }
+
     function post(param) {
         var def = $q.defer();
         $http({
@@ -160,6 +171,7 @@ function kriteriaServices($http, $q, helperServices, AuthService, message) {
         );
         return def.promise;
     }
+
     function put(param) {
         var def = $q.defer();
         $http({
@@ -256,13 +268,17 @@ function kriteriaServices($http, $q, helperServices, AuthService, message) {
     }
 
 }
+
 function periodeServices($http, $q, helperServices, AuthService, message) {
     var controller = helperServices.url + '/periode/';
     var service = {};
     service.data = [];
     service.instance = false;
     return {
-        get: get, post: post, put: put, deleted: deleted
+        get: get,
+        post: post,
+        put: put,
+        deleted: deleted
     };
 
     function get() {
@@ -288,6 +304,7 @@ function periodeServices($http, $q, helperServices, AuthService, message) {
         }
         return def.promise;
     }
+
     function post(param) {
         var def = $q.defer();
         $http({
@@ -309,6 +326,7 @@ function periodeServices($http, $q, helperServices, AuthService, message) {
         );
         return def.promise;
     }
+
     function put(param) {
         var def = $q.defer();
         $http({
@@ -319,7 +337,7 @@ function periodeServices($http, $q, helperServices, AuthService, message) {
         }).then(
             (res) => {
                 var data = service.data.find(x => x.id == param.id);
-                service.data.filter(x => x.status ="0");
+                service.data.filter(x => x.status = "0");
                 if (data) {
                     data.periode = param.periode;
                     data.status = param.status;
@@ -354,13 +372,16 @@ function periodeServices($http, $q, helperServices, AuthService, message) {
     }
 
 }
+
 function PelangganServices($http, $q, helperServices, AuthService, message) {
     var controller = helperServices.url + '/pelanggan/';
     var service = {};
     service.data = [];
     service.instance = false;
     return {
-        get: get, post: post, deleted: deleted
+        get: get,
+        post: post,
+        deleted: deleted
     };
 
     function get() {
@@ -387,6 +408,7 @@ function PelangganServices($http, $q, helperServices, AuthService, message) {
         }
         return def.promise;
     }
+
     function post(param) {
         var def = $q.defer();
         $http({
@@ -406,6 +428,7 @@ function PelangganServices($http, $q, helperServices, AuthService, message) {
         );
         return def.promise;
     }
+
     function deleted(param) {
         var def = $q.defer();
         $http({
@@ -424,13 +447,19 @@ function PelangganServices($http, $q, helperServices, AuthService, message) {
         return def.promise;
     }
 }
+
 function seleksiServices($http, $q, helperServices, AuthService, message) {
     var controller = helperServices.url + '/seleksi/';
     var service = {};
     service.data = [];
     service.instance = false;
     return {
-        get: get, post: post, proses: proses, send: send, hasil, hasil
+        get: get,
+        post: post,
+        proses: proses,
+        send: send,
+        hasil,
+        hasil
     };
 
     function get() {
@@ -455,6 +484,7 @@ function seleksiServices($http, $q, helperServices, AuthService, message) {
         }
         return def.promise;
     }
+
     function proses(item) {
         var def = $q.defer();
         $http({
@@ -497,7 +527,7 @@ function seleksiServices($http, $q, helperServices, AuthService, message) {
         var def = $q.defer();
         $http({
             method: 'post',
-            url: helperServices.url + '/email/sendemail',
+            url: helperServices.url + '/emailing/sendemail',
             data: param,
             headers: AuthService.getHeader()
         }).then(
@@ -511,6 +541,7 @@ function seleksiServices($http, $q, helperServices, AuthService, message) {
         );
         return def.promise;
     }
+
     function hasil() {
         var def = $q.defer();
         $http({
@@ -529,6 +560,7 @@ function seleksiServices($http, $q, helperServices, AuthService, message) {
         return def.promise;
     }
 }
+
 function LaporanServices($http, $q, helperServices, AuthService, message) {
     var controller = helperServices.url + '/laporan/';
     var service = {};
@@ -558,6 +590,7 @@ function LaporanServices($http, $q, helperServices, AuthService, message) {
     }
 
 }
+
 function HomeServices($http, $q, helperServices, AuthService, message) {
     var controller = helperServices.url + '/home/';
     var service = {};
@@ -586,4 +619,3 @@ function HomeServices($http, $q, helperServices, AuthService, message) {
     }
 
 }
-

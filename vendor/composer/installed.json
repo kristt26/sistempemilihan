@@ -7,15 +7,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kristt26/wplib.git",
-                "reference": "5517fa7e4fa4884e51740d42f781e7d18ee31de1"
+                "reference": "119a3efa72aeea7eb0f4fc2d96c590abb6573e9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kristt26/wplib/zipball/5517fa7e4fa4884e51740d42f781e7d18ee31de1",
-                "reference": "5517fa7e4fa4884e51740d42f781e7d18ee31de1",
+                "url": "https://api.github.com/repos/kristt26/wplib/zipball/119a3efa72aeea7eb0f4fc2d96c590abb6573e9f",
+                "reference": "119a3efa72aeea7eb0f4fc2d96c590abb6573e9f",
                 "shasum": ""
             },
-            "time": "2021-07-19T22:41:05+00:00",
+            "time": "2021-07-26T08:30:57+00:00",
             "default-branch": true,
             "type": "library",
             "installation-source": "source",

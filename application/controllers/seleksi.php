@@ -1,9 +1,11 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 use ocs\wplib\Wplib;
-class Seleksi extends CI_Controller {
+
+class Seleksi extends CI_Controller
+{
 
     public function __construct()
     {
@@ -29,42 +31,42 @@ class Seleksi extends CI_Controller {
             $pelanggan[$keypel]['nilai'] = [];
             foreach ($kriteria as $keykri => $kri) {
                 $bobot = 0;
-                if($kri['kode']=="C1"){
+                if ($kri['kode'] == "C1") {
                     foreach ($kri['subkriteria'] as $key => $value) {
-                        if($pel['paket']==$value['inisial']){
+                        if ($pel['paket'] == $value['inisial']) {
                             $bobot = $value['bobot'];
                         }
                     }
                     $item = [
                         "kode" => $kri['kode'],
-                        "bobot" => $bobot==0 ? 1 : (int)$bobot
+                        "bobot" => $bobot == 0 ? 1 : (int) $bobot,
                     ];
                     array_push($pelanggan[$keypel]['nilai'], $item);
-                }else if($kri['kode']=="C2"){
+                } else if ($kri['kode'] == "C2") {
                     foreach ($kri['subkriteria'] as $key => $value) {
-                        if($pel['tanggalbayar']==$value['inisial']){
+                        if ($pel['tanggalbayar'] == $value['inisial']) {
                             $bobot = $value['bobot'];
                         }
                     }
                     $item = [
                         "kode" => $kri['kode'],
-                        "bobot" => $bobot==0 ? 1 : (int)$bobot
+                        "bobot" => $bobot == 0 ? 1 : (int) $bobot,
                     ];
                     array_push($pelanggan[$keypel]['nilai'], $item);
-                }else{
+                } else {
                     $tgl = date("Y");
                     $selisih = $tgl - $pel['aktif'];
                     $item = [
                         "kode" => $kri['kode'],
-                        "bobot" => $selisih <= 1 ? 1 : ($selisih == 2 ? 2 : (($selisih==3 ) ? 3 :  (($selisih==4) ? 4 : (5))))
+                        "bobot" => $selisih <= 1 ? 1 : ($selisih == 2 ? 2 : (($selisih == 3) ? 3 : (($selisih == 4) ? 4 : (5)))),
                     ];
                     array_push($pelanggan[$keypel]['nilai'], $item);
                 }
             }
         }
         $data = [
-            "matriks"=>$pelanggan,
-            "wp"=>new Wplib($kriteria, $pelanggan, 10)
+            "matriks" => $pelanggan,
+            "wp" => new Wplib((array) $kriteria, (array) $pelanggan, 0),
         ];
         echo json_encode($data);
     }
@@ -76,13 +78,13 @@ class Seleksi extends CI_Controller {
         $set = [];
         foreach ($data as $key => $value) {
             $item = [
-                'pelangganid'=>$value['idpelanggan'],
-                'periodeid'=>$periode['id'],
-                'nilai'=>$value['preferensi']
+                'pelangganid' => $value['idpelanggan'],
+                'periodeid' => $periode['id'],
+                'nilai' => $value['preferensi'],
             ];
             array_push($set, $item);
         }
-        $result =$this->Seleksi_model->post($set, $periode);
+        $result = $this->Seleksi_model->post($set, $periode);
         echo json_encode($data);
     }
 
@@ -90,7 +92,6 @@ class Seleksi extends CI_Controller {
     {
         echo json_encode($this->Seleksi_model->hasil());
     }
-
 
 }
 
