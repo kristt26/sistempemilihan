@@ -22,7 +22,7 @@ class auth extends CI_Controller
     {
         $data = $this->input->post();
         $result = $this->User_model->login($data);
-        if (!is_null($result)) {
+        if ($result !== false) {
             $result['is_login'] = true;
             $this->session->set_userdata($result);
             redirect('home');

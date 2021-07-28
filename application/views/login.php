@@ -23,7 +23,7 @@
 <div class="login-box">
   <div class="login-logo">
     <img src="<?=base_url()?>public/img/telkom.png" width="75%" alt=""><br><br>
-    <h4>Sistem Pengajuan Perubahan Layanan Indihome</h4>
+    <h4>Seleksi Pelanggan Indihome Customer Gathering</h4>
   </div>
   <!-- /.login-logo -->
   <div class="card">
