@@ -161,7 +161,7 @@
                                             ng-repeat="item in datas.wp.ranking | limitTo: (jumlahRanking==0 || jumlahRanking < 0) ? '' : jumlahRanking">
                                             <td>{{$index+1}}</td>
                                             <td>{{item.nama}}</td>
-                                            <td>{{item.preferensi | number : 3}}</td>
+                                            <td>{{item.preferensi}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
