@@ -127,7 +127,7 @@
                                   <th>SubKriteria</th>
                                   <th>Inisial</th>
                                   <th>Bobot</th>
-                                  <th><i class="fas fa-cog"></i></th>
+                                  <!-- <th><i class="fas fa-cog"></i></th> -->
                               </tr>
                           </thead>
                           <tbody>
@@ -136,12 +136,12 @@
                                   <td>{{item.nama}}</td>
                                   <td>{{item.inisial}}</td>
                                   <td>{{item.bobot}}</td>
-                                  <td width=10%>
+                                  <!-- <td width=10%>
                                       <button type="button" class="btn btn-warning btn-sm" ng-click="edit(item, 'subkriteria')"><i
                                               class="fas fa-edit"></i></button>
                                       <button type="button" class="btn btn-danger btn-sm" ng-click="delete(item, 'SubKriteria')"><i
                                               class="fas fa-trash"></i></button>
-                                  </td>
+                                  </td> -->
                               </tr>
                           </tbody>
                       </table>
